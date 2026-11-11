@@ -1,7 +1,7 @@
 import type { ScheduleBlock } from "./types";
 
 export function toMinutes(hhmm: string) {
-  const [h, m] = hhmm.split(":").map(Number);
+  const [h = NaN, m = NaN] = hhmm.split(":").map(Number);
   if (Number.isNaN(h) || Number.isNaN(m)) return 0;
   return h * 60 + m;
 }
@@ -27,7 +27,7 @@ export function moveItem<T>(list: T[], from: number, to: number): T[] {
   if (from === to || from < 0 || to < 0 || from >= list.length || to >= list.length) return list;
   const next = [...list];
   const [item] = next.splice(from, 1);
-  next.splice(to, 0, item);
+  next.splice(to, 0, item as T);
   return next;
 }
 

@@ -90,7 +90,7 @@ interface TaskForm {
 const EMPTY_FORM: TaskForm = { title: "", deadline: "", duration: "60", priority: "medium", important: false };
 
 function validateTask(f: TaskForm) {
-  const e: Partial<Record<keyof TaskForm, string>> = {};
+  const e: Partial<Record<keyof TaskForm, string | undefined>> = {};
   if (!f.title.trim()) e.title = "Task name is required.";
   const d = Number(f.duration);
   if (!Number.isFinite(d) || d < 5 || d > 600) e.duration = "Use 5–600 minutes.";
@@ -312,7 +312,7 @@ function PlannerPage() {
           }
           action={
             schedules.length > 1 ? (
-              <Select value={schedule?.id} onValueChange={setScheduleId}>
+              <Select value={schedule?.id ?? ""} onValueChange={setScheduleId}>
                 <SelectTrigger className="h-8 w-40 text-xs" aria-label="Previous schedules">
                   <SelectValue placeholder="History" />
                 </SelectTrigger>

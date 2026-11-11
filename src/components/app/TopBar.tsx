@@ -41,7 +41,7 @@ import { cn } from "@/lib/utils";
 function initials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
   if (!parts.length) return null;
-  return (parts[0][0] + (parts[1]?.[0] ?? "")).toUpperCase();
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
 export function TopBar() {

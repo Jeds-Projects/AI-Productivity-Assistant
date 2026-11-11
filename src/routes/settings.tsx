@@ -62,8 +62,8 @@ function SettingsPage() {
       setStatus({ ok: false, message: "Enter an API key first." });
       return;
     }
-    setApiKey(key);
     if (!test) {
+      setApiKey(key);
       setStatus(null);
       toast.success("API key saved in memory for this session");
       return;
@@ -72,10 +72,11 @@ function SettingsPage() {
     setStatus(null);
     try {
       await testConnection(key, settings.model);
+      setApiKey(key);
       setStatus({ ok: true, message: `Connected to ${settings.model}. AI features are ready.` });
       toast.success("Gemini connection verified");
     } catch (e) {
-      setStatus({ ok: false, message: errorMessage(e) });
+      setStatus({ ok: false, message: `${errorMessage(e)} The key was not saved.` });
     } finally {
       setTesting(false);
     }
@@ -97,7 +98,7 @@ function SettingsPage() {
     <div className="space-y-6">
       <PageHeader icon={SettingsIcon} title="Settings" description="Connect Google Gemini and tailor the assistant to how you work." />
 
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid items-start gap-6 xl:grid-cols-2">
         <Panel
           title="Google Gemini API key"
           icon={KeyRound}

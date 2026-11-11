@@ -49,7 +49,7 @@ export function computeKpis(data: Pick<AppData, "tasks" | "activity">, now = new
   const weekStart = end - 7 * DAY;
   const prevStart = end - 14 * DAY;
 
-  const count = (list: { at?: string }[], from: number, to: number) =>
+  const count = (list: { at?: string | undefined }[], from: number, to: number) =>
     list.filter((a) => inRange(a.at, from, to)).length;
 
   const completed = data.tasks.filter((t) => t.completed);
@@ -127,7 +127,7 @@ export function formatMinutes(min: number) {
 
 export function daysUntil(deadline: string | undefined, now = new Date()) {
   if (!deadline) return undefined;
-  const [y, m, d] = deadline.split("-").map(Number);
+  const [y = 0, m = 1, d = 1] = deadline.split("-").map(Number);
   const due = new Date(y, m - 1, d).getTime();
   return Math.round((due - startOfDay(now).getTime()) / DAY);
 }

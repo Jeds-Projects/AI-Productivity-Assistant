@@ -9,7 +9,7 @@ export function useAiRequest<T>() {
   const { apiKey } = useApiKey();
   const { settings } = useAppData();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<{ message: string; kind?: string } | null>(null);
+  const [error, setError] = useState<{ message: string; kind?: string | undefined } | null>(null);
   const controller = useRef<AbortController | null>(null);
 
   const run = useCallback(

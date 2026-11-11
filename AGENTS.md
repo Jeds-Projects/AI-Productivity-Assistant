@@ -28,3 +28,12 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Frontend only: no backend, database, auth or server functions; the brief requires a browser-only app.
+- AI calls go directly from the browser to Google Gemini (`src/lib/gemini.ts`) with a user-supplied key held only in React memory (`src/lib/api-key.tsx`), never persisted; the brief mandates client-side BYO key.
+- All app data (tasks, outputs, activity, settings) lives in one localStorage-backed store (`src/lib/store.ts`, read via `useSyncExternalStore` with a default server snapshot to avoid hydration mismatches).
+- Structured AI output uses Gemini `responseSchema` JSON; prompts and schemas live together in `src/lib/prompts.ts`.
+- Uploaded documents are parsed in the browser (pdfjs-dist, mammoth) via dynamic imports inside handlers so they never load during SSR.
+- KPI/time-saved math lives in `src/lib/stats.ts` and is covered by `src/lib/stats.test.ts`.

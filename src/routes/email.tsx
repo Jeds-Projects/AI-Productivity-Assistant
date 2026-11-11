@@ -62,7 +62,7 @@ interface FormState {
 const EMPTY: FormState = { recipient: "", subject: "", context: "", objective: "", tone: "Formal" };
 
 function validate(f: FormState) {
-  const e: Partial<Record<keyof FormState, string>> = {};
+  const e: Partial<Record<keyof FormState, string | undefined>> = {};
   if (!f.recipient.trim()) e.recipient = "Who is this email for?";
   if (!f.subject.trim()) e.subject = "Add a subject or topic.";
   if (f.context.trim().length < 15) e.context = "Give at least a sentence of context (15+ characters).";

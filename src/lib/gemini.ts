@@ -52,7 +52,7 @@ interface GenerateOptions {
   prompt: string;
   schema?: Schema;
   temperature?: number;
-  signal?: AbortSignal;
+  signal?: AbortSignal | undefined;
 }
 
 const ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models";
@@ -79,7 +79,7 @@ async function callGemini({
     res = await fetch(`${ENDPOINT}/${encodeURIComponent(model)}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      signal,
+      signal: signal ?? null,
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },
         contents: [{ role: "user", parts: [{ text: prompt }] }],
@@ -109,7 +109,7 @@ async function callGemini({
     if (lower.includes("api key not valid") || lower.includes("api_key_invalid")) {
       throw new GeminiError(
         "invalid_key",
-        "Your Gemini API key was rejected. Check it in Settings and try again.",
+        "Your Gemini API key was rejected by Google. Check the key and try again.",
       );
     }
     if (res.status === 400) {

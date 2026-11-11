@@ -93,7 +93,7 @@ export function AppSidebar() {
                   hasKey ? "bg-success shadow-[0_0_8px] shadow-success" : "bg-warning",
                 )}
               />
-              {hasKey ? "Gemini connected" : "Gemini not connected"}
+              {hasKey ? "Gemini key added" : "Gemini not connected"}
             </div>
             <p className="mt-1 text-on-dark-muted">
               {hasKey ? "Key held in memory for this session." : "Add your API key to enable AI."}

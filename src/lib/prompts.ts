@@ -40,8 +40,8 @@ export function emailPrompt(input: {
   objective: string;
   tone: Tone;
   settings: Settings;
-  previous?: string;
-  refinement?: string;
+  previous?: string | undefined;
+  refinement?: string | undefined;
 }) {
   const system = `You are a senior business communications specialist who writes original, context-aware workplace emails.
 Rules:

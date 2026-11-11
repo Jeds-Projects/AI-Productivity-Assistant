@@ -5,12 +5,12 @@ export interface Task {
   id: string;
   title: string;
   /** yyyy-mm-dd, optional */
-  deadline?: string;
+  deadline?: string | undefined;
   durationMin: number;
   priority: Priority;
   important: boolean;
   completed: boolean;
-  completedAt?: string;
+  completedAt?: string | undefined;
   createdAt: string;
 }
 
@@ -70,8 +70,8 @@ export interface ScheduleBlock {
   end: string; // HH:mm
   title: string;
   kind: BlockKind;
-  taskId?: string;
-  reason?: string;
+  taskId?: string | undefined;
+  reason?: string | undefined;
 }
 
 export interface ScheduleDay {
@@ -82,7 +82,7 @@ export interface ScheduleDay {
 }
 
 export interface UnscheduledTask {
-  taskId?: string;
+  taskId?: string | undefined;
   title: string;
   reason: string;
 }
@@ -105,7 +105,7 @@ export interface Activity {
   title: string;
   at: string;
   minutesSaved: number;
-  refId?: string;
+  refId?: string | undefined;
 }
 
 export interface Insight {
@@ -137,6 +137,6 @@ export interface AppData {
   schedules: Schedule[];
   activity: Activity[];
   settings: Settings;
-  insights?: Insights;
+  insights?: Insights | undefined;
   readNotifications: string[];
 }
